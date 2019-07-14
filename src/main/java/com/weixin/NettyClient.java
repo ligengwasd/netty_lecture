@@ -2,9 +2,11 @@ package com.weixin;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.AttributeKey;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +22,10 @@ public class NettyClient {
 
         Bootstrap bootstrap = new Bootstrap();
         bootstrap
+                .attr(AttributeKey.newInstance("clientName"), "nettyClient")
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.TCP_NODELAY, true)
                 // 1.指定线程模型
                 .group(workerGroup)
                 // 2.指定 IO 类型为 NIO
