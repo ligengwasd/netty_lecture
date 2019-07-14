@@ -34,10 +34,11 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
+                        ch.pipeline().addLast(new FirstClientHandler());
                     }
                 });
         // 4.建立连接
-        connect(bootstrap, "127.0.0.1", 8888, 5);
+        connect(bootstrap, "127.0.0.1", 8000, 5);
     }
 
     private static void connect(Bootstrap bootstrap, String host, int port, int retry) {

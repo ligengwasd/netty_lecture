@@ -30,7 +30,7 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
-                        System.out.println("服务端启动中");
+                        ch.pipeline().addLast(new FirstServerHandler());
                     }
                 })
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
